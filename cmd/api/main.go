@@ -8,22 +8,17 @@ import (
 	"time"
 
 	"rate-limiter/internal/limiter"
-
-	"github.com/redis/go-redis/v9"
+	"rate-limiter/internal/redis"
 )
 
 func main() {
 	// Initialize Redis client
-	rdb := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
-	})
-	defer rdb.Close()
-
-	// Check connection
-	if err := rdb.Ping(context.Background()).Err(); err != nil {
-		fmt.Printf("Failed to connect to Redis: %v\n", err)
+	rdb, err := redis.NewClient()
+	if err != nil {
+		fmt.Printf("Failed to initialize Redis client: %v\n", err)
 		return
 	}
+	defer rdb.Close()
 
 	// Initialize Limiter
 	// Capacity: 5, Rate: 1 token/second
