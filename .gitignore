@@ -1,0 +1,14 @@
+# Binaries
+rate-limiter
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
